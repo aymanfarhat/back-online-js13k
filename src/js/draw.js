@@ -1,0 +1,5 @@
+class Draw {
+    constructor() {
+
+    }
+}
