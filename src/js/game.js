@@ -1,4 +1,6 @@
-import Draw from "./draw.js";
+import Hero from "./hero.js";
+import Terrain from "./terrain.js";
+import { throws } from "assert";
 
 class Game {
     constructor(width, height) {
@@ -8,28 +10,27 @@ class Game {
         this.currentWidth = width;
         this.currentHeight = height;
         this.context = container.getContext('2d');
+        this.entities = [];
 
-        this.frameIndex = 0;
-        this.tickCount = 0;
-        this.ticksPerFrame = 10;
-        this.nFrames = 2;
+        this.bg = document.getElementById('bg');
+        this.bgWidth = 400;
+        this.scrollSpeed = 4;
+
+        this.worldConfig = {
+
+        }
     }
 
-    init() {}
+    init() {
+       this.entities.push(new Terrain(this.context, 0, (this.currentHeight - 40), this.currentWidth, this.currentHeight));
+       this.entities.push(new Hero(this.context, 10, (this.currentHeight - 126)));
+    }
 
     /** Updates the state of all entities in the world */
     update() {
-        this.tickCount += 1;
-
-        if (this.tickCount > this.ticksPerFrame) {
-            this.tickCount = 0;
-
-            if(this.frameIndex < this.nFrames - 1) {
-                this.frameIndex += 1;
-            } else {
-                this.frameIndex = 0;
-            }
-        }
+        this.entities.forEach((entity) => {
+            entity.update();
+        });
     }
 
     resize() {
@@ -40,29 +41,15 @@ class Game {
         this.canvas.style.width = `${width}px`;
         this.canvas.style.height = `${height}px`;
     }
+
     /** Loops through all the entities in the world and renders them */
     render() {
-        this.context.clearRect(0, this.currentHeight - 100, 86, 94);
-
-        var trex = document.getElementById('trex');
-        var f = trex.height / trex.width;
-        var newHeight = this.currentWidth * f;
-        this.context.drawImage(
-            trex, 
-            (this.frameIndex * 86),
-            0,
-            86,
-            94,
-            0,
-            this.currentHeight - 100,
-            86,
-            94
-            );
+        this.entities.forEach((entity) => {
+            entity.render();
+        });
     }
 
     loop() {
-        //window.requestAnimationFrame(this.loop());
-
         this.update();
         this.render();
     }
@@ -78,6 +65,7 @@ function loop() {
 
 window.addEventListener('load', function() {
     game.resize();
+    game.init();
     loop();
 });
 

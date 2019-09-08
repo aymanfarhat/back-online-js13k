@@ -12,11 +12,32 @@
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
     <title>Back online! - 13KB JS Game</title>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: #FFF;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -ms-user-select: none;
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            color: #FFF;
+        }
+
+        canvas { 
+            display: block; 
+            margin: 0 auto; 
+            background: #e0f1fc;
+        } 
+    </style>
 </head>
 <body>
     <img src="./sprites/trex.png" id="trex" style="display:none;"/>
-    <img src="./sprites/offline-sprite.png" id="offline-sprite" style="display:none;"/>
+    <img src="./sprites/bg.png" id="bg" style="display:none;"/>
     <canvas id="game" width="400" height="600"></canvas>
 </body>
 </html>
