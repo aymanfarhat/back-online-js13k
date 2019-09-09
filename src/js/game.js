@@ -1,6 +1,5 @@
 import Hero from "./hero.js";
 import Terrain from "./terrain.js";
-import { throws } from "assert";
 
 class Game {
     constructor(width, height) {
@@ -17,13 +16,13 @@ class Game {
         this.scrollSpeed = 4;
 
         this.worldConfig = {
-
-        }
+           gravity: 0.31875 
+        };
     }
 
     init() {
        this.entities.push(new Terrain(this.context, 0, (this.currentHeight - 40), this.currentWidth, this.currentHeight));
-       this.entities.push(new Hero(this.context, 10, (this.currentHeight - 126)));
+       this.entities.push(new Hero(this.context, 10, (this.currentHeight - 126), this.worldConfig));
     }
 
     /** Updates the state of all entities in the world */
@@ -44,14 +43,10 @@ class Game {
 
     /** Loops through all the entities in the world and renders them */
     render() {
+        this.context.clearRect(0, 0, this.currentWidth, this.currentHeight);
         this.entities.forEach((entity) => {
             entity.render();
         });
-    }
-
-    loop() {
-        this.update();
-        this.render();
     }
 }
 

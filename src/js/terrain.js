@@ -21,6 +21,7 @@ class Terrain {
     }
 
     render() {
+        this.drawContext.save();
         this.drawContext.clearRect(0, (this.canvasHeight - 40), 400, 27);
         this.drawContext.drawImage(this.bg, this.bgWidth, (this.canvasHeight - 40));
         this.drawContext.drawImage(this.bg, (this.bgWidth - this.canvasWidth), (this.canvasHeight - 40));

@@ -1,8 +1,9 @@
 class Hero {
-    constructor(drawContext, x, y) {
+    constructor(drawContext, x, y, worldConfig) {
         this.drawContext = drawContext;
         this.x = x;
         this.y = y;
+        this.worldConfig = worldConfig;
 
         this.frameIndex = 0;
         this.tickCount = 0;
@@ -11,27 +12,47 @@ class Hero {
 
         this.heroWidth = 86;
         this.heroHeight = 94;
+
+        this.onGround = true;
+        this.vy = 0.0;
+        this.baseY = y;
+
+        window.addEventListener('click', () => this.triggerJump());
+    }
+
+    triggerJump() {
+        if(this.onGround && this.y > 70) {
+            this.vy = -8;
+        }
     }
 
     update() {
-        this.tickCount += 1;
+        this.vy += this.worldConfig['gravity'];
+        this.y += this.vy;
 
-        if (this.tickCount > this.ticksPerFrame) {
-            this.tickCount = 0;
+        if (this.y > this.baseY) {
+            this.vy = 0;
+            this.y = this.baseY;
+            this.onGround = true;
 
-            if(this.frameIndex < this.nFrames - 1) {
-                this.frameIndex += 1;
-            } else {
-                this.frameIndex = 0;
+            this.tickCount += 1;
+
+            if (this.tickCount > this.ticksPerFrame) {
+                this.tickCount = 0;
+
+                if(this.frameIndex < this.nFrames - 1) {
+                    this.frameIndex += 1;
+                } else {
+                    this.frameIndex = 0;
+                }
             }
         }
     }
 
     render() {
-        this.drawContext.clearRect(this.x, this.y, 86, 94);
         var trex = document.getElementById('trex');
         var f = trex.height / trex.width;
-
+        this.drawContext.save();
         this.drawContext.drawImage(
             trex, 
             (this.frameIndex * this.heroWidth),
