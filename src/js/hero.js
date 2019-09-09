@@ -8,6 +8,9 @@ class Hero {
         this.tickCount = 0;
         this.ticksPerFrame = 10;
         this.nFrames = 2;
+
+        this.heroWidth = 86;
+        this.heroHeight = 94;
     }
 
     update() {
@@ -31,14 +34,14 @@ class Hero {
 
         this.drawContext.drawImage(
             trex, 
-            (this.frameIndex * 86),
+            (this.frameIndex * this.heroWidth),
             0,
-            86,
-            94,
+            this.heroWidth,
+            this.heroHeight,
             this.x,
             this.y,
-            86,
-            94
+            this.heroWidth,
+            this.heroHeight
             );
         this.drawContext.restore();
     }

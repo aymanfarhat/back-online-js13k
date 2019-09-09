@@ -8,8 +8,7 @@ class Terrain {
         this.canvasWidth = canvasWidth;
 
         this.bg = document.getElementById('bg');
-        this.bgWidth = this.bg.naturalWidth;
-        console.log(this.bg.naturalWidth);
+        this.bgWidth = this.canvasWidth;
         this.scrollSpeed = 3;
     }
 
