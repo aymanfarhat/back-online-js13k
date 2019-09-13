@@ -19,6 +19,7 @@ class Obstacle {
 
         this.colors = ['#1eaaf1','#fd9727','#1ec659', '#9b2fae'];
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        this.entityName = 'Obstacle';
     }
 
     triggerFall() {

@@ -17,6 +17,8 @@ class Particle {
         this.dir = (Math.random() * 2 > 1)? 1: -1;
         this.vx = (Math.random() * 4) * xdir;
         this.vy = (Math.random() * 7) * ydir;
+
+        this.entityName = 'Particle';
     }
 
     update() {

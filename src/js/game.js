@@ -29,6 +29,7 @@ class Game {
         this.touchStarted = false;
 
         window.addEventListener('click', (e) => this.handleTap(e));
+        window.addEventListener('touchstart', (e) => this.handleTap(e));
     }
 
     init() {
@@ -112,8 +113,8 @@ class Game {
     renderStatusBar() {
         this.context.font = `bold 14px Monospace`;
         this.context.fillStyle = '#535353';
-        this.context.fillText(this.Hero.totalDownload, 50, 35);
-        this.context.fillText('Kbs Downloaded', 50, 50);
+        this.context.fillText(this.Hero.totalDownload, 10, 35);
+        this.context.fillText('Kbs Downloaded', 10, 50);
 
         if (this.Hero.totalCache <= 1000) {
             this.context.fillStyle = '#ff0000';
@@ -121,8 +122,8 @@ class Game {
             this.context.fillStyle = '#01c853';
         }
 
-        this.context.fillText(this.Hero.totalCache, 300, 35);
-        this.context.fillText('Kbs Cached', 300, 50);
+        this.context.fillText(this.Hero.totalCache, 290, 35);
+        this.context.fillText('Kbs Cached', 290, 50);
     }
 
     resetGame() {
@@ -149,13 +150,13 @@ class Game {
             } else {
                 let collisionResult = Utils.checkCollision(entity.x, entity.y, this.Hero.x, this.Hero.y, entity.width, this.Hero.heroWidth, entity.height, this.Hero.heroHeight);
 
-                if(entity.constructor.name === 'Obstacle' && collisionResult.collide) {
+                if(entity.entityName === 'Obstacle' && collisionResult.collide) {
                     this.Hero.takeHit(entity.width);
                     this.generateBlast(entity.x, entity.y, -1, collisionResult.ydir, 5, (entity.width / 2), entity.color);
                     entity.hit = true;
                 }
 
-                if (entity.constructor.name === 'Obstacle' && Utils.checkRectAbove(entity.x, entity.y, this.Hero.x, this.Hero.y, entity.width, this.Hero.heroWidth)) {
+                if (entity.entityName === 'Obstacle' && Utils.checkRectAbove(entity.x, entity.y, this.Hero.x, this.Hero.y, entity.width, this.Hero.heroWidth)) {
                     entity.triggerFall();
                 }
 

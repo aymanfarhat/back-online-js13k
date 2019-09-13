@@ -19,8 +19,10 @@ class Hero {
 
         this.totalDownload = 0;
         this.totalCache = 0;
+        this.entityName = 'Hero';
 
         window.addEventListener('click', () => this.triggerJump());
+        window.addEventListener('touchstart', (e) => this.triggerJump(e));
     }
 
     triggerJump() {
