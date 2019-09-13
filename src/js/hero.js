@@ -7,7 +7,7 @@ class Hero {
 
         this.frameIndex = 0;
         this.tickCount = 0;
-        this.ticksPerFrame = 10;
+        this.ticksPerFrame = 13;
         this.nFrames = 2;
 
         this.heroWidth = 86;
@@ -16,6 +16,9 @@ class Hero {
         this.onGround = true;
         this.vy = 0.0;
         this.baseY = y;
+
+        this.totalDownload = 0;
+        this.totalCache = 0;
 
         window.addEventListener('click', () => this.triggerJump());
     }
@@ -26,7 +29,14 @@ class Hero {
         }
     }
 
+    takeHit(obstacleSize) {
+        this.totalCache = Math.ceil(this.totalCache - (obstacleSize * 2));
+    }
+
     update() {
+        this.totalDownload += Math.ceil(this.worldConfig['speed']);
+        this.totalCache += Math.ceil(this.worldConfig['speed']);
+
         this.vy += this.worldConfig['gravity'];
         this.y += this.vy;
 

@@ -1,3 +1,5 @@
+import Utils from './utils.js';
+
 class Obstacle {
     constructor(drawContext, x, y, worldConfig) {
         this.drawContext = drawContext;
@@ -5,10 +7,10 @@ class Obstacle {
         this.y = y;
         this.worldConfig = worldConfig;
 
-        this.width = 100;
+        this.width = Utils.getRandomFromRange(30, 100);
         this.height = 30;
 
-        this.vx = 4;
+        this.vx = Utils.getRandomFromRange(2, 6);
         this.vy = 0;
 
         this.remove = false;
