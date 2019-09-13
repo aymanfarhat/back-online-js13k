@@ -3,6 +3,10 @@ class Obstacle {
         this.drawContext = drawContext;
         this.x = x;
         this.y = y;
+        this.worldConfig = worldConfig;
+
+        this.width = 100;
+        this.height = 30;
 
         this.vx = 4;
         this.vy = 0;
@@ -15,14 +19,23 @@ class Obstacle {
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
     }
 
+    triggerFall() {
+        this.falling = true;
+    }
+
     update() {
+        if(this.falling) {
+            this.vy += this.worldConfig['gravity'];
+            this.y += this.vy;
+        };
+
         this.x -= this.vx;
         this.remove = (this.x < - 100);
     }
 
     render() {
         this.drawContext.beginPath();
-        this.drawContext.rect(this.x, this.y, 100, 30);
+        this.drawContext.rect(this.x, this.y, this.width, this.height);
         this.drawContext.fillStyle = this.color;
         this.drawContext.fill();
     }
