@@ -1,7 +1,7 @@
 import Hero from './hero.js';
 import Terrain from './terrain.js';
 import Obstacle from './obstacle.js';
-import Utils from './utils.js';
+import Physics from './utils/physics.js';
 import Particle from './particle.js';
 
 /**
@@ -141,8 +141,8 @@ class Game {
     if (this.nextObstacle < 0) {
       this.entities.push(new Obstacle(
           this.drawContext,
-          Utils.getRandomFromRange(600, 7500),
-          Utils.getRandomFromRange(70, 500),
+          Physics.getRandomFromRange(600, 7500),
+          Physics.getRandomFromRange(70, 500),
           this.worldConfig)
       );
 
@@ -235,7 +235,7 @@ class Game {
       if (entity.remove || entity.hit) {
         this.entities.splice(index, 1);
       } else {
-        const collisionResult = Utils.checkCollision(
+        const collisionResult = Physics.checkCollision(
             entity.x,
             entity.y,
             this.Hero.x,
@@ -257,7 +257,7 @@ class Game {
           entity.hit = true;
         }
 
-        const isRectAbove = Utils.checkRectAbove(
+        const isRectAbove = Physics.checkRectAbove(
             entity.x,
             entity.y,
             this.Hero.x,

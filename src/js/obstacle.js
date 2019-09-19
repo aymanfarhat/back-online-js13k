@@ -1,4 +1,4 @@
-import Utils from './utils.js';
+import Physics from './utils/physics.js';
 
 /**
  * Obstacle class
@@ -17,10 +17,10 @@ class Obstacle {
     this.y = y;
     this.worldConfig = worldConfig;
 
-    this.width = Utils.getRandomFromRange(30, 100);
+    this.width = Physics.getRandomFromRange(30, 100);
     this.height = 30;
 
-    this.vx = Utils.getRandomFromRange(2, 6);
+    this.vx = Physics.getRandomFromRange(2, 6);
     this.vy = 0;
 
     this.remove = false;
@@ -53,7 +53,7 @@ class Obstacle {
   }
 
   /**
-   * Render /paint an obstacle object per frame
+   * Render an obstacle object per frame
    */
   render() {
     this.drawContext.beginPath();

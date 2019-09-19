@@ -1,4 +1,4 @@
-import Utils from './utils.js';
+import Draw from './utils/draw.js';
 
 /**
  * Particle class
@@ -56,7 +56,7 @@ class Particle {
    * Renders a particle object to the screen per frame
    */
   render() {
-    const col = Utils.hexToRgbA(this.background, this.opacity);
+    const col = Draw.hexToRgbA(this.background, this.opacity);
 
     this.drawContext.beginPath();
     this.drawContext.rect(this.x, this.y, this.width, this.height);
