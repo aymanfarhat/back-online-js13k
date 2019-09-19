@@ -24,4 +24,4 @@ Physics.checkCollision = (ax, ay, bx, by, aWidth, bWidth, aHeight, bHeight) => {
 };
 
 
-export default Utils;
+export default Physics;

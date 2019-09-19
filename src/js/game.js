@@ -90,7 +90,7 @@ class Game {
 
     lineHeight += 45;
 
-    this.drawContext.fillText('Tap to jump and double jump!', 20, line_height);
+    this.drawContext.fillText('Tap to jump and double jump!', 20, lineHeight);
 
     const hero = new Hero(
         this.drawContext,
