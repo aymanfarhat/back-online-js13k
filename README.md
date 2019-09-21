@@ -1,6 +1,6 @@
 ## Back online! - JS13k Compo submission
 
-![](game-demo.gif)
+![](game-demo.gif =418x613)
 
 [Play it here!](https://back-online-js-13k.firebaseapp.com/)
 
