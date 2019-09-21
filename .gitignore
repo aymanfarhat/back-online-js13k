@@ -1,6 +1,7 @@
 node_modules/
 package-lock.json
 yarn-error.log
+npm-debug.log
 package-lock.json
 yarn.lock
 js13k_2019.code-workspace

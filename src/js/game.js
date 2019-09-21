@@ -1,8 +1,9 @@
 import Hero from './hero.js';
 import Terrain from './terrain.js';
 import Obstacle from './obstacle.js';
-import Physics from './utils/physics.js';
 import Particle from './particle.js';
+import Physics from './utils/physics.js';
+import Draw from './utils/draw.js';
 
 /**
  * Main game class responsible for running the game and managing its state
@@ -31,7 +32,7 @@ class Game {
       speed: 0.5,
     };
 
-    this.gameState = 'intro';
+    this.gameState = 'intro'; // intro, game, game_over
     this.touchStarted = false;
 
     window.addEventListener('click', (e) => this.handleTap(e));
@@ -67,30 +68,39 @@ class Game {
    */
   drawStartScreen() {
     this.drawContext.clearRect(0, 0, this.currentWidth, this.currentHeight);
-    this.drawContext.font = `bold 22px Monospace`;
-    this.drawContext.fillStyle = '#535353';
 
-    this.drawContext.fillText('Back Online!', 100, 80);
+    Draw.singleLineText(
+        this.drawContext,
+        'Back Online!',
+        'bold 22px Monospace',
+        '#535353',
+        140,
+        80);
 
-    this.drawContext.font = `16px Monospace`;
-
-    const textArr = [
+    const lines = [
       'You just got back online and trex ',
       'got stuck in the devtools network tab!',
       'How many kilobytes can it survive?',
       'Avoid download bars and save on cache!',
     ];
 
-    let lineHeight = 180;
+    Draw.multiLineText(
+        this.drawContext,
+        lines,
+        '16px Monospace',
+        '#535353',
+        20,
+        180,
+        25
+    );
 
-    for (let i = 0; i < textArr.length; i++) {
-      this.drawContext.fillText(textArr[i], 20, lineHeight);
-      lineHeight += 18;
-    }
-
-    lineHeight += 45;
-
-    this.drawContext.fillText('Tap to jump and double jump!', 20, lineHeight);
+    Draw.singleLineText(
+        this.drawContext,
+        'Tap to jump and double jump!',
+        'bold 16px Monospace',
+        '#535353',
+        80,
+        370);
 
     const hero = new Hero(
         this.drawContext,
@@ -116,17 +126,40 @@ class Game {
    */
   drawGameOver() {
     this.drawContext.clearRect(0, 0, this.currentWidth, this.currentHeight);
-    this.drawContext.font = `bold 24px Monospace`;
-    this.drawContext.fillStyle = '#535353';
-    this.drawContext.fillText('Game Over!', 100, 80);
 
-    this.drawContext.font = `16px Monospace`;
+    const lines = [
+      'You managed to survive',
+      `${this.lastScore} kilobytes`,
+      'Before running out of cache!',
+    ];
 
-    this.drawContext.fillText('You managed to survive', 100, 180);
-    this.drawContext.fillText(`${this.lastScore} kilobytes`, 100, 210);
-    this.drawContext.fillText('Before running out of cache!', 100, 240);
+    Draw.singleLineText(
+        this.drawContext,
+        'Game Over!',
+        'bold 24px Monospace',
+        '#535353',
+        100,
+        80
+    );
 
-    this.drawContext.fillText('Tap to continue!', 100, 400);
+    Draw.multiLineText(
+        this.drawContext,
+        lines,
+        '16px Monospace',
+        '#535353',
+        20,
+        180,
+        25
+    );
+
+    Draw.singleLineText(
+        this.drawContext,
+        'Tap to continue',
+        'bold 16px Monospace',
+        '#535353',
+        100,
+        280
+    );
   }
 
   /**
@@ -197,19 +230,43 @@ class Game {
    * Paints a status bar on the screen showing the latest score
    */
   renderStatusBar() {
-    this.drawContext.font = `bold 14px Monospace`;
-    this.drawContext.fillStyle = '#535353';
-    this.drawContext.fillText(this.Hero.totalDownload, 10, 35);
-    this.drawContext.fillText('Kbs Downloaded', 10, 50);
+    Draw.singleLineText(
+        this.drawContext,
+        this.Hero.totalDownload,
+        'bold 14px Monospace',
+        '#535353',
+        10,
+        35
+    );
 
-    if (this.Hero.totalCache <= 1000) {
-      this.drawContext.fillStyle = '#ff0000';
-    } else {
-      this.drawContext.fillStyle = '#01c853';
-    }
+    Draw.singleLineText(
+        this.drawContext,
+        'Kbs Downloaded',
+        'bold 14px Monospace',
+        '#535353',
+        10,
+        50
+    );
 
-    this.drawContext.fillText(this.Hero.totalCache, 290, 35);
-    this.drawContext.fillText('Kbs Cached', 290, 50);
+    const drawColor = (this.Hero.totalCache > 1000)?'#01c853':'#ff0000';
+
+    Draw.singleLineText(
+        this.drawContext,
+        this.Hero.totalCache,
+        'bold 14px Monospace',
+        drawColor,
+        290,
+        35
+    );
+
+    Draw.singleLineText(
+        this.drawContext,
+        'Kbs Cached',
+        'bold 14px Monospace',
+        drawColor,
+        290,
+        50
+    );
   }
 
   /**
